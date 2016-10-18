@@ -1,0 +1,21 @@
+{% extends "estructura.html" %}
+{% block contenido %}
+		{% for elemento in entrada %}
+			<article>
+				<a href="{% url 'entrada' elemento.pk %}">><h3>{{ elemento.titulo }}</h3></a>
+				<time>{{ elemento.fecha }}</time>
+				<p>{{ elemento.contenido }}</p>
+			</article>
+		{% endfor %}
+		
+		<nav>
+			{% if entrada.has_previous %}
+				<a href="?page={{ entrada.previous_page_number }}">Pagina anterior</a>
+			{% endif %}
+			<p>Pagina{{ entrada.number }} de {{ entrada.paginator.num_pages }}</p>
+			{% if entrada.has_next %}
+				<a href="?page={{ entrada.next_page_number }}">Pagina siguiente</a>
+			{% endif %}
+		</nav>
+		{% endblock %}
+		

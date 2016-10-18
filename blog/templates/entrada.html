@@ -1,0 +1,24 @@
+{% extends "estructura.html" %}
+{%  block contenido %}
+			<article>
+				<a href="{% url 'entrada' elemento.pk %}">><h3>{{ elemento.titulo }}</h3></a>
+				<time>{{ elemento.fecha }}</time>
+				<p>{{ elemento.contenido }}</p>
+			</article>
+
+			{% if comentario %}
+				<p>Comentarios:</p>
+			{% endif %}
+			<UL>
+			{% for comentario in comentario %}
+				<li>{{ comentario.fechacreacion }} - {{ comentario.autor }}</li>
+				<ul>
+					<li>{{comentario.mensaje|linebraks }}</li>
+				</ul>
+			<form action="{%'poncomentario' elemento.id %}" method"POST">
+				{% csrf_token %}
+				<p>Nombre: {{form.autor}}</p>
+				<p>Mensaje:{{ form.mensaje }}</p>
+				<p><input type="submit" value="Enviar"></p>
+			</form>
+{% endblock %}
